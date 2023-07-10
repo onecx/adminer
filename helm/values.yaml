@@ -33,9 +33,9 @@ routing:
 
   # ingress
   ingress:
-    # aditional annotations
-    annotations:
-      ingress.kubernetes.io/ssl-redirect: "false"
+    # aditional annotations    
+    annotations: {}
+    #  traefik.ingress.kubernetes.io/router.middlewares: traefik-develop-basic-auth@kubernetescrd
 
 # database configuration
 db:

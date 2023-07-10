@@ -5,8 +5,10 @@ metadata:
   name:  {{ .Release.Name }}-ingress
   labels:
     app: {{ .Release.Name }}
-  annotations:    
+{{- if .Values.routing.ingress.annotations }}    
+  annotations:
 {{ toYaml .Values.routing.ingress.annotations  | indent 4 }}
+{{- end }}
 spec:
   rules:
   - host: {{ .Release.Name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
