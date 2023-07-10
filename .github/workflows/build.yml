@@ -12,4 +12,5 @@ jobs:
     secrets: inherit
     with:
       push: true
+      artifact: ''
       helmDir: 'helm'
