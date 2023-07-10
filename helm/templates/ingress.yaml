@@ -1,0 +1,22 @@
+{{- if .Values.routing.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ .Release.Name }}-ingress
+  labels:
+    app: {{ .Release.Name }}
+  annotations:    
+{{ toYaml .Values.routing.ingress.annotations  | indent 4 }}
+spec:
+  rules:
+  - host: {{ .Release.Name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}
+            port: 
+              number: {{ .Values.service.port }}
+{{ end }}

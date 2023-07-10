@@ -1,0 +1,49 @@
+# global configuration
+global:
+  # global host name
+  default_url:
+
+# Adminer image
+image:
+  # Docker registry
+  registry: "docker.io"
+  # Docker image
+  repository: "adminer"
+  # Docker version
+  tag: 4.8.1-standalone
+
+# service
+service:
+  port: 8080
+
+# post configuration
+pod:
+  # pot port
+  port: 8080
+
+imagePullPolicy: IfNotPresent
+
+# Route
+routing:
+  # Enable or disable route
+  enabled: true
+
+  # Default URL
+  default_url: "change.com"
+
+  # ingress
+  ingress:
+    # aditional annotations
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "false"
+
+# database configuration
+db:
+  # default server
+  server:
+
+# Replicas
+replicas: 1
+
+# Adminer theme
+theme: "pepa-linha"

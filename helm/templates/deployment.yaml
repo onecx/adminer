@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/component: {{ .Release.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
+      {{- end }}
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:   
+          - name: ADMINER_DESIGN
+            value: {{ .Values.theme }}
+      {{- if .Values.imagePullSecrets }}            
+          - name: ADMINER_DEFAULT_SERVER
+            value: {{ .Values.db.server }}
+      {{- end }}
+      volumes:
+        - name: pswd-volume
+          configMap:
+            name: {{ .Release.Name }}-nginx-pswd
+        - name: redirect-volume
+          configMap:
+            name: {{ .Release.Name }}-nginx-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30   
