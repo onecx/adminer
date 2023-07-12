@@ -21,7 +21,7 @@ spec:
             port: 
               number: {{ .Values.service.port }}
     {{ if .Values.routing.ingress.host.override }}
-    host: {{ .Values.routing.ingress.override }}.{{ .Values.global.default_url | default .Values.routing.default_url }} 
+    host: {{ .Values.routing.ingress.host.override }}.{{ .Values.global.default_url | default .Values.routing.default_url }} 
     {{ else .Values.routing.ingress.host.name }}
     host: {{ .Values.routing.ingress.host.name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
     {{ else }}
