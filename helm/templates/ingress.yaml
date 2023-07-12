@@ -11,8 +11,7 @@ metadata:
 {{- end }}
 spec:
   rules:
-  - host: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
-    http:
+  - http:
       paths:
       - path: "/"
         pathType: Prefix
@@ -21,4 +20,11 @@ spec:
             name: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
             port: 
               number: {{ .Values.service.port }}
+    {{ if .Values.routing.ingress.host.name }}
+    host: {{ .Values.routing.ingress.name }}.{{ .Values.global.default_url | default .Values.routing.default_url }} 
+    {{ else .Values.routing.ingress.host.namespaceName }}
+    host: {{ .Values.routing.ingress.namespaceName }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
+    {{ else }}
+    host: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}              
+    {{- end }}
 {{ end }}

@@ -36,6 +36,14 @@ routing:
 
   # ingress
   ingress:
+    # host configuration
+    host:
+      # prio1 if the name is define generate domain <override>.<default_url>
+      override :
+      # prio2 if the name is define generate domain <name>-<release_namespace>.<default_url>
+      name:
+      # else <release_name>-<name of chart_name>-<release_namespace>.<default_url>
+
     # aditional annotations    
     annotations: {}
     #  traefik.ingress.kubernetes.io/router.middlewares: traefik-develop-basic-auth@kubernetescrd
