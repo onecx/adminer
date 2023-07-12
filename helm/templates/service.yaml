@@ -1,14 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
   annotations:
-    description: {{ .Release.Name }}
+    description: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
 spec:
   selector:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
   ports:
     - name: http
       protocol: TCP

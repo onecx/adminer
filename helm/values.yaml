@@ -3,6 +3,9 @@ global:
   # global host name
   default_url:
 
+# Name of the instance, default {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
+name:
+
 # Adminer image
 image:
   # Docker registry

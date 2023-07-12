@@ -2,23 +2,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name:  {{ .Release.Name }}-ingress
+  name:  {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}-ingress
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
 {{- if .Values.routing.ingress.annotations }}    
   annotations:
 {{ toYaml .Values.routing.ingress.annotations  | indent 4 }}
 {{- end }}
 spec:
   rules:
-  - host: {{ .Release.Name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
+  - host: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
     http:
       paths:
       - path: "/"
         pathType: Prefix
         backend:
           service:
-            name: {{ .Release.Name }}
+            name: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}
             port: 
               number: {{ .Values.service.port }}
 {{ end }}
