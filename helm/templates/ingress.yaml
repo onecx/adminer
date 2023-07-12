@@ -23,7 +23,7 @@ spec:
     {{ if .Values.routing.ingress.host.override }}
     host: {{ .Values.routing.ingress.override }}.{{ .Values.global.default_url | default .Values.routing.default_url }} 
     {{ else .Values.routing.ingress.host.name }}
-    host: {{ .Values.routing.ingress.name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
+    host: {{ .Values.routing.ingress.host.name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}
     {{ else }}
     host: {{ .Release.Name }}-{{ .Values.name | default .Chart.Name }}-{{ .Release.Namespace }}.{{ .Values.global.default_url | default .Values.routing.default_url }}              
     {{- end }}
